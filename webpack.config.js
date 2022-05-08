@@ -22,6 +22,12 @@ Encore
      */
     .addEntry('app', './assets/app.js')
 
+    .enableEslintPlugin({
+        fix: true,
+        files: './assets',
+        extensions: ['js', 'vue']
+    })
+
     .enableVueLoader(() => {}, { runtimeCompilerBuild: false })
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
