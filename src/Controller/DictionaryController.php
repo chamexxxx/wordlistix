@@ -50,6 +50,20 @@ class DictionaryController extends AbstractController
         ZipFileExtractor $zipFileExtractor
     ): JsonResponse
     {
+        $requestData = array_merge(
+            $request->request->all(),
+            $request->files->all()
+        );
+
+        $errors = $validator->validate($requestData, new DictionaryRequirements());
+
+        if ($errors->count() > 0) {
+            return $this->json(
+                ViolationSerializer::convertToArray($errors),
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
         $path = $request->files->get('dictionary')->getRealPath();
 
         $entityManager = $doctrine->getManager();
