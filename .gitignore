@@ -1,6 +1,9 @@
 # phpstorm project files
 .idea
 
+# uploads directory
+/public/uploads/
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
