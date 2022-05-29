@@ -79,10 +79,10 @@ class CsvReader implements \Iterator
     {
         $line = $this->file->fgetcsv();
         
-        if ($this->file->eof() || $line === false) {
+        if ($this->file->eof() && is_null($line)) {
             return false;
         }
-        
+
         return array_combine($this->header, $line);
     }
 }
