@@ -9,7 +9,7 @@
 
     <div class="flex flex-col">
       <Word
-          v-for="({ languageCode, text }, index) in words"
+          v-for="({ languageCode, text }, index) in sortedWords"
           :key="index"
           :text="text"
           :language-code="languageCode"
@@ -21,10 +21,10 @@
 </template>
 
 <script setup>
-import { inject } from 'vue';
+import { computed, inject } from 'vue';
 import Word from './Word.vue';
 
-defineProps({
+const props = defineProps({
   words: {
     type: Array,
     required: true,
@@ -34,4 +34,12 @@ defineProps({
 });
 
 const activeLanguageCode = inject('activeLanguageCode');
+
+const sortedWords = computed(() => {
+  const firstWord = props.words.find(
+    ({ languageCode }) => languageCode === activeLanguageCode.value,
+  );
+
+  return [firstWord, ...props.words.filter(({ languageCode }) => languageCode !== activeLanguageCode.value)];
+});
 </script>
