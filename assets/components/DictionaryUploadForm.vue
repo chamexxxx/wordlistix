@@ -73,6 +73,10 @@ const save = () => uploadDictionary({
 
 const onDictionaryFileUpload = (file) => {
   dictionaryFile.value = file;
+
+  if (!dictionaryName.value) {
+    dictionaryName.value = file.name.replace(/\.[^/.]+$/, '');
+  }
 };
 
 const onImageArchiveUpload = (file) => {
