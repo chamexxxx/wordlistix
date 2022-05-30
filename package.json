@@ -33,7 +33,8 @@
         "pinia": "^2.0.14",
         "swiper": "^8.1.6",
         "vue": "^3.2.33",
-        "vue-router": "^4.0.15"
+        "vue-router": "^4.0.15",
+        "vue-virtual-scroller": "^2.0.0-alpha.1"
     },
     "browserslist": [
         "defaults"
