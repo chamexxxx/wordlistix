@@ -10,25 +10,13 @@
     <SwiperSlide
         v-for="({ words, image, displayed }, index) in comparisons"
         :key="index"
-        class="flex flex-col justify-center items-center"
     >
-      <img
-          v-if="image"
-          :src="`/uploads/${image}`"
-          alt=""
-          class="w-28 h-28 mb-6 object-cover rounded-full"
-      >
-
-      <div class="flex flex-col">
-        <Word
-            v-for="({ languageCode, text }, index) in words"
-            :key="index"
-            :text="text"
-            :language-code="languageCode"
-            :hidden="!displayed"
-            :active="languageCode === activeLanguageCode"
-        />
-      </div>
+      <ComparisonSlide
+          :words="words"
+          :image="image"
+          :displayed="displayed"
+          :active-language-code="activeLanguageCode"
+      />
     </SwiperSlide>
 
     <template v-slot:container-end>
@@ -40,10 +28,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
-import Word from './Word.vue';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import ComparisonSlide from './ComparisonSlide.vue';
 
 defineProps({
   comparisons: {
@@ -55,9 +41,6 @@ defineProps({
     required: true,
   },
 });
-
-const route = useRoute();
-const swiper = ref(null);
 </script>
 
 <style>
