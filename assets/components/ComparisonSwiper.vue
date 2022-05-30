@@ -15,7 +15,6 @@
           :words="words"
           :image="image"
           :displayed="displayed"
-          :active-language-code="activeLanguageCode"
       />
     </SwiperSlide>
 
@@ -28,6 +27,7 @@
 </template>
 
 <script setup>
+import { inject } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import ComparisonSlide from './ComparisonSlide.vue';
 
@@ -36,11 +36,9 @@ defineProps({
     type: Array,
     required: true,
   },
-  activeLanguageCode: {
-    type: String,
-    required: true,
-  },
 });
+
+const activeLanguageCode = inject('activeLanguageCode');
 </script>
 
 <style>

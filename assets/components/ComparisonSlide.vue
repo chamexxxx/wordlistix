@@ -21,6 +21,7 @@
 </template>
 
 <script setup>
+import { inject } from 'vue';
 import Word from './Word.vue';
 
 defineProps({
@@ -30,6 +31,7 @@ defineProps({
   },
   image: String,
   displayed: Boolean,
-  activeLanguageCode: String,
 });
+
+const activeLanguageCode = inject('activeLanguageCode');
 </script>

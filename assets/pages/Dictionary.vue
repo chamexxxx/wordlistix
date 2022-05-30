@@ -42,7 +42,6 @@
         <ComparisonSwiper
             class="px-8 p-5"
             :comparisons="currentDictionary?.comparisons"
-            :active-language-code="activeLanguageCode"
             @swiper="onSwiper"
             @slideChange="realIndexChange"
         >
@@ -74,9 +73,9 @@
 
 <script setup>
 import {
-  computed, onMounted, reactive, ref, watch,
+  computed, onMounted, provide, reactive, ref, watch,
 } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useStore } from '../store';
 import Button from '../components/base/Button.vue';
 import Card from '../components/base/Card.vue';
@@ -102,6 +101,8 @@ const isOpen = ref(false);
 const languageCodeEnabled = ref(false);
 const activeSlideIndex = ref(0);
 const activeLanguageCode = ref('RUS');
+
+provide('activeLanguageCode', activeLanguageCode);
 
 const currentDictionary = computed(
   () => store.dictionaries.find(({ id }) => Number(props.dictionaryId) === id),
