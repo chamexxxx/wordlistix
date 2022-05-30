@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center w-full h-96 my-10">
     <PixelSpinner v-if="store.dictionariesAreLoading" />
 
-    <div class="flex flex-col items-center w-full" v-else>
+    <div v-else class="flex flex-col items-center max-w-xl w-full">
       <Card class="w-full max-h-96 h-full p-3">
         <DictionaryList
             v-if="store.dictionaries.length > 0"
@@ -11,7 +11,7 @@
 
         <div
             v-else
-            class="flex flex-col justify-center items-center h-full"
+            class="flex flex-col justify-center items-center h-full py-5"
         >
           <BookOpenIcon class="h-16 w-16 text-gray-500" />
 
@@ -28,8 +28,9 @@
       </Card>
 
       <Button
+          v-if="store.dictionaries.length > 0"
           opacity
-          class="mt-5"
+          class="mt-6"
           @click="dialogIsOpen = true"
       >
         Загрузить словарь
