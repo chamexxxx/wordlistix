@@ -10,6 +10,10 @@ api_dictionary_show:
     path: /api/dictionaries/{id}
     controller: App\Controller\DictionaryController::show
     methods: GET
+api_comparison_list:
+    path: /api/comparisons
+    controller: App\Controller\ComparisonController::index
+    methods: GET
 index:
     path: /{any}
     controller: App\Controller\DefaultController::index
