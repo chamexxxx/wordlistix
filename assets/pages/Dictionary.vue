@@ -35,8 +35,7 @@
           <div class="flex justify-between mt-2 mb-5 px-8">
             <LanguageSwitch
                 :language-codes="languageCodes"
-                v-model="languageCodeEnabled"
-                @update:modelValue="onLanguageCodeChanged"
+                v-model="activeLanguageCode"
             />
 
             <span class="text-sm text-gray-600">
@@ -79,7 +78,7 @@
 
 <script setup>
 import {
-  computed, onMounted, provide, reactive, ref, watch,
+  computed, onMounted, provide, ref, watch,
 } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from '../store';
@@ -101,12 +100,11 @@ const props = defineProps({
 const router = useRouter();
 const store = useStore();
 
-const { fetchDictionaryList, fetchDictionary } = store;
+const { fetchDictionary } = store;
 
 const languageCodes = ['RUS', 'ENG'];
 
 const isOpen = ref(false);
-const languageCodeEnabled = ref(false);
 const activeSlideIndex = ref(0);
 const activeLanguageCode = ref(languageCodes[0]);
 
@@ -123,10 +121,6 @@ onMounted(async () => {
 watch(() => props.dictionaryId, () => {
   fetchDictionary(props.dictionaryId);
 });
-
-const onLanguageCodeChanged = (value) => {
-  activeLanguageCode.value = value ? 'ENG' : 'RUS';
-};
 
 const currentComparison = computed(() => currentDictionary.value?.comparisons[
   activeSlideIndex.value
