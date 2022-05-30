@@ -20,7 +20,12 @@ const store = useStore();
 
 const { fetchDictionaryList } = store;
 
-const routerLinks = [];
+const routerLinks = [
+  {
+    label: 'Список словарей',
+    to: '/',
+  },
+];
 
 onMounted(async () => {
   await fetchDictionaryList();
