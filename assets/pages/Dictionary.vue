@@ -32,7 +32,11 @@
     <template v-else-if="currentDictionary?.comparisons">
       <Card class="max-w-sm mx-auto my-10 pt-3" style="min-height: 410px">
         <div class="flex justify-between mt-2 mb-5 px-8">
-          <LanguageSwitch v-model="languageCodeEnabled" @update:modelValue="onLanguageCodeChanged" />
+          <LanguageSwitch
+              :language-codes="languageCodes"
+              v-model="languageCodeEnabled"
+              @update:modelValue="onLanguageCodeChanged"
+          />
 
           <span class="text-sm text-gray-600">
             {{ activeSlideIndex + 1 }}/{{ currentDictionary.comparisons.length }}
@@ -97,10 +101,12 @@ const store = useStore();
 
 const { fetchDictionaryList, fetchDictionary } = store;
 
+const languageCodes = ['RUS', 'ENG'];
+
 const isOpen = ref(false);
 const languageCodeEnabled = ref(false);
 const activeSlideIndex = ref(0);
-const activeLanguageCode = ref('RUS');
+const activeLanguageCode = ref(languageCodes[0]);
 
 provide('activeLanguageCode', activeLanguageCode);
 

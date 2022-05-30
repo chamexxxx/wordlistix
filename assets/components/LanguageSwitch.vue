@@ -6,11 +6,15 @@
       class="relative inline-flex items-center justify-between gap-x-1.5 h-6 px-1.5 rounded-full
         transition duration-300 ease-in-out"
   >
-    <span v-if="!modelValue" class="ml-1 text-white">RUS</span>
+    <span v-if="!modelValue" class="ml-1 text-white">
+      {{ languageCodes[0] }}
+    </span>
 
     <span class="inline-block h-4 w-4 rounded-full bg-white" />
 
-    <span v-if="modelValue" class="mr-1 text-white">ENG</span>
+    <span v-if="modelValue" class="mr-1 text-white">
+      {{ languageCodes[1] }}
+    </span>
   </Switch>
 </template>
 
@@ -19,5 +23,10 @@ import { Switch } from '@headlessui/vue';
 
 defineProps({
   modelValue: Boolean,
+  languageCodes: {
+    type: Array,
+    required: true,
+    validator: (codes) => codes.length === 2,
+  },
 });
 </script>
