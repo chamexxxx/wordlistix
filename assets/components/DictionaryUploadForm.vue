@@ -30,7 +30,7 @@
           Отмена
         </Button>
 
-        <Button primary @click="onSaveButtonClick">
+        <Button primary @click="save">
           Сохранить
         </Button>
       </div>
@@ -62,12 +62,13 @@ const save = () => uploadDictionary({
   dictionary: dictionaryFile.value,
   images: imageArchive.value,
 })
+  .then(() => {
+    emit('save');
+  })
   .catch((error) => {
     const { data } = error.response;
 
     errors.value = data;
-
-    throw error;
   });
 
 const onDictionaryFileUpload = (file) => {
@@ -83,9 +84,4 @@ const onImageArchiveUpload = (file) => {
 };
 
 const onCancelButtonClick = () => emit('cancel');
-
-const onSaveButtonClick = async () => {
-  await save();
-  emit('save');
-};
 </script>
