@@ -117,8 +117,6 @@ const currentDictionary = computed(
 );
 
 onMounted(async () => {
-  await fetchDictionaryList();
-
   await fetchDictionary(props.dictionaryId);
 });
 
