@@ -12,6 +12,11 @@ const routes = [
     component: () => import('./pages/Dictionary.vue'),
     props: (route) => ({ dictionaryId: route.params.id }),
   },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import('./pages/NotFound.vue'),
+  },
 ];
 
 const router = createRouter({
