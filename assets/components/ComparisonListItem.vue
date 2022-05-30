@@ -34,10 +34,7 @@ defineProps({
     type: Array,
     required: true,
   },
-  image: {
-    type: String,
-    required: true,
-  },
+  image: String,
   dictionaryName: {
     type: String,
     required: true,
