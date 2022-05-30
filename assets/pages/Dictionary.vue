@@ -8,69 +8,71 @@
   </Dialog>
 
   <div class="flex flex-col max-w-md w-full">
-    <div v-if="currentDictionary" class="flex justify-between items-center mt-10">
-      <Select
-          :modelValue="currentDictionary"
-          :items="store.dictionaries"
-          class="w-5/12"
-          @update:modelValue="onChangeDictionary"
-      />
-
-      <Button class="w-5/12" opacity @click="openModal">
-        Загрузить словарь
-      </Button>
-    </div>
-
     <div
-        v-if="store.dictionaryIsLoading && !currentDictionary?.comparisons"
+        v-if="store.dictionaryIsLoading || store.dictionariesAreLoading"
          class="flex justify-center items-center my-10"
          style="min-height: 410px"
     >
       <PixelSpinner />
     </div>
 
-    <template v-else-if="currentDictionary?.comparisons">
-      <Card class="max-w-sm mx-auto my-10 pt-3" style="min-height: 410px">
-        <div class="flex justify-between mt-2 mb-5 px-8">
-          <LanguageSwitch
-              :language-codes="languageCodes"
-              v-model="languageCodeEnabled"
-              @update:modelValue="onLanguageCodeChanged"
-          />
+    <template v-else>
+      <div v-if="currentDictionary" class="flex justify-between items-center mt-10">
+        <Select
+            :modelValue="currentDictionary"
+            :items="store.dictionaries"
+            class="w-5/12"
+            @update:modelValue="onChangeDictionary"
+        />
 
-          <span class="text-sm text-gray-600">
-            {{ activeSlideIndex + 1 }}/{{ currentDictionary.comparisons.length }}
-          </span>
-        </div>
+        <Button class="w-5/12" opacity @click="openModal">
+          Загрузить словарь
+        </Button>
+      </div>
 
-        <ComparisonSwiper
-            class="px-8 p-5"
-            :comparisons="currentDictionary?.comparisons"
-            @swiper="onSwiper"
-            @slideChange="realIndexChange"
-        >
-          <template #container-end>
-            <hr class="my-5">
+      <template v-if="currentDictionary?.comparisons">
+        <Card class="max-w-sm mx-auto my-10 pt-3" style="min-height: 410px">
+          <div class="flex justify-between mt-2 mb-5 px-8">
+            <LanguageSwitch
+                :language-codes="languageCodes"
+                v-model="languageCodeEnabled"
+                @update:modelValue="onLanguageCodeChanged"
+            />
 
-            <div class="flex justify-between items-center">
-              <Button
-                  secondary
-                  :disabled="!(currentComparison && !currentComparison?.displayed)"
-                  @click="onShowTranslationButtonClick"
-              >
-                Показать перевод
-              </Button>
+            <span class="text-sm text-gray-600">
+              {{ activeSlideIndex + 1 }}/{{ currentDictionary.comparisons.length }}
+            </span>
+          </div>
 
-              <NextWordButton secondary />
-            </div>
-          </template>
-        </ComparisonSwiper>
-      </Card>
+          <ComparisonSwiper
+              class="px-8 p-5"
+              :comparisons="currentDictionary?.comparisons"
+              @swiper="onSwiper"
+              @slideChange="realIndexChange"
+          >
+            <template #container-end>
+              <hr class="my-5">
 
-      <DictionaryMessage
-          :dictionary-name="currentDictionary.name"
-          :comparisons-length="currentDictionary.comparisons.length"
-      />
+              <div class="flex justify-between items-center">
+                <Button
+                    secondary
+                    :disabled="!(currentComparison && !currentComparison?.displayed)"
+                    @click="onShowTranslationButtonClick"
+                >
+                  Показать перевод
+                </Button>
+
+                <NextWordButton secondary />
+              </div>
+            </template>
+          </ComparisonSwiper>
+        </Card>
+
+        <DictionaryMessage
+            :dictionary-name="currentDictionary.name"
+            :comparisons-length="currentDictionary.comparisons.length"
+        />
+      </template>
     </template>
   </div>
 </template>
