@@ -11,7 +11,7 @@
     <div :class="[
         'relative bg-gray-50 border border-gray-300 rounded-lg overflow-hidden',
         'focus-within:outline outline-offset-2 outline-2 outline-blue-500',
-        { '!bg-red-100 border border-red-500': !valid }
+        { 'bg-red-100 border border-red-500': !valid }
     ]">
       <div
           v-if="$slots.prepend"
@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <p v-if="!valid" class="mt-2 text-red-500 text-xs italic">
+    <p v-if="!valid && errorMessage" class="mt-2 text-red-500 text-xs italic">
       {{ errorMessage }}
     </p>
   </div>

@@ -21,8 +21,8 @@
         <UploadIcon class="h-8 w-8 mt-2" />
 
         <span class="mt-3 mb-1 px-3 py-1 text-center">
-        Нажмите или перетащите файл в эту область
-      </span>
+          Нажмите или перетащите файл в эту область
+        </span>
 
         <span v-if="message" class="text-sm text-gray-500">
           {{ message }}
@@ -33,12 +33,16 @@
         <ArchiveIcon class="h-8 w-8 mt-2" />
 
         <span class="mt-3 mb-1 px-3 py-1 text-center">
-        Файл загружен
-      </span>
+          Файл загружен
+        </span>
       </template>
 
-      <input type="file" class="invisible" @change="onFileChanged">
+      <input type="file" class="hidden" @change="onFileChanged">
     </label>
+
+    <p v-if="!valid && errorMessage" class="mt-2 text-red-500 text-xs italic">
+      {{ errorMessage }}
+    </p>
   </div>
 </template>
 
@@ -53,6 +57,7 @@ defineProps({
     type: Boolean,
     default: true,
   },
+  errorMessage: String,
 });
 
 const emit = defineEmits(['upload']);
