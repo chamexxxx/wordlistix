@@ -6,6 +6,12 @@ const routes = [
     name: 'Dictionaries',
     component: () => import('./pages/Dictionaries.vue'),
   },
+  {
+    path: '/dictionaries/:id',
+    name: 'Dictionary',
+    component: () => import('./pages/Dictionary.vue'),
+    props: (route) => ({ dictionaryId: route.params.id }),
+  },
 ];
 
 const router = createRouter({
