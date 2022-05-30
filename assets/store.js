@@ -10,18 +10,25 @@ export const useStore = defineStore('main', {
   }),
   getters: {},
   actions: {
+    addDictionary(dictionary, status) {
+      const d = this.dictionaries.find(({ id }) => dictionary.id === id);
+
+      if (!d) {
+        this.dictionaries.push(dictionary);
+      } else if (!d.comparisons) {
+        d.comparisons = dictionary.comparisons;
+      }
+    },
     async fetchDictionaryList() {
       this.dictionariesAreLoading = true;
 
       try {
         const { data: items } = await axios.get('/dictionaries/');
 
-        this.dictionaries = items;
+        items.forEach(this.addDictionary);
       } finally {
         this.dictionariesAreLoading = false;
       }
-
-      return this.dictionaries;
     },
     async fetchDictionary(id) {
       this.dictionaryIsLoading = true;
@@ -29,11 +36,7 @@ export const useStore = defineStore('main', {
       try {
         const { data: dictionary } = await axios.get(`/dictionaries/${id}`);
 
-        const d = this.dictionaries.find((item) => dictionary.id === item.id);
-
-        if (d) {
-          d.comparisons = dictionary.comparisons;
-        }
+        this.addDictionary(dictionary);
       } finally {
         this.dictionaryIsLoading = false;
       }
@@ -55,7 +58,7 @@ export const useStore = defineStore('main', {
 
       return axios.post('/dictionaries', formData)
         .then(({ data }) => {
-          this.dictionaries.push(data);
+          this.addDictionary(data);
           return data;
         });
     },
