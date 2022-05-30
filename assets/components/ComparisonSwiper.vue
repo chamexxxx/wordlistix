@@ -27,7 +27,6 @@
 </template>
 
 <script setup>
-import { inject } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import ComparisonSlide from './ComparisonSlide.vue';
 
@@ -37,8 +36,6 @@ defineProps({
     required: true,
   },
 });
-
-const activeLanguageCode = inject('activeLanguageCode');
 </script>
 
 <style>

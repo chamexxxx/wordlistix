@@ -40,6 +40,11 @@ const sortedWords = computed(() => {
     ({ languageCode }) => languageCode === activeLanguageCode.value,
   );
 
-  return [firstWord, ...props.words.filter(({ languageCode }) => languageCode !== activeLanguageCode.value)];
+  return [
+    firstWord,
+    ...props.words.filter(
+      ({ languageCode }) => languageCode !== activeLanguageCode.value,
+    ),
+  ];
 });
 </script>

@@ -65,7 +65,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import {
   Listbox,
   ListboxButton,
@@ -74,7 +73,7 @@ import {
 } from '@headlessui/vue';
 import { CheckIcon, SelectorIcon } from '@heroicons/vue/solid';
 
-const props = defineProps({
+defineProps({
   items: {
     type: Array,
     required: true,

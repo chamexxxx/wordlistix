@@ -44,7 +44,6 @@ import Form from './base/Form.vue';
 import Field from './base/Field.vue';
 import Uploader from './base/Uploader.vue';
 import Button from './base/Button.vue';
-import axios from '../axios';
 import { useStore } from '../store';
 
 const emit = defineEmits(['cancel', 'save']);

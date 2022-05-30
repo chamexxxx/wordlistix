@@ -10,7 +10,7 @@ export const useStore = defineStore('main', {
   }),
   getters: {},
   actions: {
-    addDictionary(dictionary, status) {
+    addDictionary(dictionary) {
       const d = this.dictionaries.find(({ id }) => dictionary.id === id);
 
       if (!d) {
