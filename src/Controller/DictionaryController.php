@@ -132,6 +132,10 @@ class DictionaryController extends AbstractController
     {
         $dictionary = $repository->find($id);
 
+        if (!$dictionary) {
+            throw $this->createNotFoundException('Словарь с таким id не существует');
+        }
+
         return $this->json($dictionary, Response::HTTP_OK, [], [
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['dictionary', 'comparison']
         ]);
