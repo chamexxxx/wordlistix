@@ -21,6 +21,7 @@
 
 <script setup>
 import { useSpeechSynthesis } from '@vueuse/core';
+import { computed, toRefs } from 'vue';
 import languageCodes from '../language-codes';
 
 const props = defineProps({
@@ -36,9 +37,16 @@ const props = defineProps({
   active: Boolean,
 });
 
-const { '639-1': lang } = languageCodes.find(
-  ({ '639-3': code }) => props.languageCode.toLowerCase() === code,
-);
+const { text } = toRefs(props);
 
-const { speak } = useSpeechSynthesis(props.text, { lang });
+const lang = computed(() => {
+  // eslint-disable-next-line no-shadow
+  const { '639-1': lang } = languageCodes.find(
+    ({ '639-3': code }) => props.languageCode.toLowerCase() === code,
+  );
+
+  return lang;
+});
+
+const { speak } = useSpeechSynthesis(text, { lang });
 </script>
