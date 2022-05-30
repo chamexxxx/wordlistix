@@ -71,7 +71,7 @@ const onDrop = ({ dataTransfer }) => {
 
   uploadedFile.value = file;
 
-  console.log('drop', file);
+  emit('upload', file);
 };
 
 const onFileChanged = (event) => {
