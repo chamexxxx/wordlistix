@@ -16,5 +16,13 @@ import { onMounted } from 'vue';
 import { useStore } from './store';
 import NavTabs from './components/base/NavTabs.vue';
 
+const store = useStore();
+
+const { fetchDictionaryList } = store;
+
 const routerLinks = [];
+
+onMounted(async () => {
+  await fetchDictionaryList();
+});
 </script>

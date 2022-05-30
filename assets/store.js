@@ -5,9 +5,23 @@ import axios from './axios';
 export const useStore = defineStore('main', {
   state: () => ({
     dictionaries: [],
+    dictionariesAreLoading: false,
   }),
   getters: {},
   actions: {
+    async fetchDictionaryList() {
+      this.dictionariesAreLoading = true;
+
+      try {
+        const { data: items } = await axios.get('/dictionaries/');
+
+        this.dictionaries = items;
+      } finally {
+        this.dictionariesAreLoading = false;
+      }
+
+      return this.dictionaries;
+    },
     async uploadDictionary({ name, dictionary, images }) {
       const formData = new FormData();
 
