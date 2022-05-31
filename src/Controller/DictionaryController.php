@@ -9,6 +9,7 @@ use App\Repository\DictionaryRepository;
 use App\Service\ZipFileExtractor;
 use App\Utils\CsvReader;
 use App\Utils\Zip;
+use App\Validator\Constraints\DictionaryCsvHeader;
 use App\Validator\Constraints\DictionaryRequirements;
 use App\Serializer\ViolationSerializer;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -87,6 +88,16 @@ class DictionaryController extends AbstractController
 
         $zip = new ZipArchive();
         $header = $csv->getHeader();
+
+        $errors = $validator->validate($header, new DictionaryCsvHeader());
+
+        if ($errors->count() > 0) {
+            $errorsString = $errors->get(0)->getMessage();
+
+            return $this->json([
+                'dictionary' => [$errorsString]
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
         $imagesExists = false;
 
