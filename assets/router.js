@@ -13,6 +13,11 @@ const routes = [
     props: (route) => ({ dictionaryId: route.params.id }),
   },
   {
+    path: '/words',
+    name: 'Words',
+    component: () => import('./pages/Words.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('./pages/NotFound.vue'),

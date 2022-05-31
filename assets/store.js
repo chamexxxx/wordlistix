@@ -5,10 +5,22 @@ import axios from './axios';
 export const useStore = defineStore('main', {
   state: () => ({
     dictionaries: [],
+    comparisons: [],
     dictionaryIsLoading: false,
     dictionariesAreLoading: false,
+    comparisonsAreLoading: false,
   }),
-  getters: {},
+  getters: {
+    getComparisons: (state) => (search = null) => {
+      if (!search) {
+        return state.comparisons;
+      }
+
+      return state.comparisons.filter(
+        ({ words }) => words.some(({ text }) => text.toLowerCase().includes(search)),
+      );
+    },
+  },
   actions: {
     addDictionary(dictionary) {
       const d = this.dictionaries.find(({ id }) => dictionary.id === id);
@@ -61,6 +73,17 @@ export const useStore = defineStore('main', {
           this.addDictionary(data);
           return data;
         });
+    },
+    async fetchComparisonList() {
+      try {
+        this.comparisonsAreLoading = true;
+
+        const { data: items } = await axios.get('/comparisons');
+
+        this.comparisons = items;
+      } finally {
+        this.comparisonsAreLoading = false;
+      }
     },
   },
 });

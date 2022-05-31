@@ -25,6 +25,10 @@ const routerLinks = [
     label: 'Список словарей',
     to: '/',
   },
+  {
+    label: 'Все слова',
+    to: '/words',
+  },
 ];
 
 onMounted(async () => {
