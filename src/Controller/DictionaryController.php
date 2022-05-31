@@ -11,7 +11,7 @@ use App\Utils\CsvReader;
 use App\Utils\Zip;
 use App\Validator\Constraints\DictionaryRequirements;
 use App\Serializer\ViolationSerializer;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\ManagerRegistry;
@@ -60,7 +60,7 @@ class DictionaryController extends AbstractController
 
         if ($errors->count() > 0) {
             return $this->json(
-                ViolationSerializer::convertToArray($errors),
+                ViolationSerializer::convertToArrayWithPropertyAccessor($errors),
                 Response::HTTP_BAD_REQUEST
             );
         }
@@ -71,6 +71,15 @@ class DictionaryController extends AbstractController
 
         $dictionary = new Dictionary();
         $dictionary->setName($request->get('name'));
+
+        $errors = $validator->validate($dictionary);
+
+        if ($errors->count() > 0) {
+            return $this->json(
+                ViolationSerializer::convertToArray($errors),
+                Response::HTTP_BAD_REQUEST
+            );
+        }
 
         $entityManager->persist($dictionary);
 
@@ -120,14 +129,7 @@ class DictionaryController extends AbstractController
             $entityManager->persist($comparison);
         }
 
-        try {
-            $entityManager->flush();
-        } catch (UniqueConstraintViolationException $e) {
-            return $this->json(
-                ['name' => ['Название словаря должно быть уникальным.']],
-                Response::HTTP_BAD_REQUEST
-            );
-        }
+        $entityManager->flush();
 
         return $this->json([
             'id' => $dictionary->getId(),

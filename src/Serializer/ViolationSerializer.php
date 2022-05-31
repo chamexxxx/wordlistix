@@ -7,7 +7,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class ViolationSerializer
 {
-    public static function convertToArray(ConstraintViolationListInterface $violations): array
+    public static function convertToArrayWithPropertyAccessor(ConstraintViolationListInterface $violations): array
     {
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
 
@@ -19,6 +19,17 @@ class ViolationSerializer
             $entryErrors[] = $violation->getMessage();
 
             $propertyAccessor->setValue($errors, $violation->getPropertyPath(), $entryErrors);
+        }
+
+        return $errors;
+    }
+
+    public static function convertToArray(ConstraintViolationListInterface $violations): array
+    {
+        $errors = [];
+
+        foreach ($violations as $violation) {
+            $errors[$violation->getPropertyPath()][] = $violation->getMessage();
         }
 
         return $errors;
