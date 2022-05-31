@@ -1,10 +1,9 @@
 <template>
   <Swiper
       ref="swiper"
-      class="w-full h-full overflow-y-auto select-none"
+      class="w-full overflow-y-auto select-none"
       :allowTouchMove="false"
       :allowSlidePrev="false"
-      :auto-height="true"
       loop
   >
     <SwiperSlide

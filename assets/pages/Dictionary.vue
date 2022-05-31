@@ -31,7 +31,7 @@
       </div>
 
       <template v-if="currentDictionary?.comparisons">
-        <Card class="max-w-sm mx-auto my-10 pt-3" style="min-height: 410px">
+        <Card class="max-w-sm mx-auto my-10 pt-3">
           <div class="flex justify-between mt-2 mb-5 px-8">
             <LanguageSwitch
                 :language-codes="languageCodes"
