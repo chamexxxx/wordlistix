@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full h-96 my-10">
+  <div class="flex flex-col items-center w-full h-96 my-10">
     <div v-if="store.dictionariesAreLoading" class="flex justify-center items-center h-full">
       <PixelSpinner />
     </div>
