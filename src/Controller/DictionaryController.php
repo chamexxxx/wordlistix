@@ -140,6 +140,12 @@ class DictionaryController extends AbstractController
             $entityManager->persist($comparison);
         }
 
+        if ($dictionary->getComparisons()->count() === 0) {
+            return $this->json([
+                'dictionary' => ['Количество слов равно нулю']
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
         $entityManager->flush();
 
         return $this->json([
