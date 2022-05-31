@@ -2,6 +2,8 @@
 
 > A web application that will help you learn English words
 
+<img src="./preview.png" alt="preview" width="300" />
+
 ## Requirements
 
 * PHP 7.3.0 or higher
