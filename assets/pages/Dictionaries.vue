@@ -1,6 +1,8 @@
 <template>
-  <div class="flex flex-col items-center w-full h-96 my-10">
-    <PixelSpinner v-if="store.dictionariesAreLoading" />
+  <div class="flex flex-col w-full h-96 my-10">
+    <div v-if="store.dictionariesAreLoading" class="flex justify-center items-center h-full">
+      <PixelSpinner />
+    </div>
 
     <div v-else class="flex flex-col items-center max-w-xl w-full">
       <Card class="w-full max-h-96 h-full p-3">
