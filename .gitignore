@@ -4,6 +4,9 @@
 # uploads directory
 /public/uploads/
 
+# environment configuration
+.env
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
