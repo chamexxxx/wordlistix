@@ -11,6 +11,7 @@ use App\Utils\CsvReader;
 use App\Utils\Zip;
 use App\Validator\Constraints\DictionaryRequirements;
 use App\Serializer\ViolationSerializer;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\ManagerRegistry;
@@ -119,7 +120,14 @@ class DictionaryController extends AbstractController
             $entityManager->persist($comparison);
         }
 
-        $entityManager->flush();
+        try {
+            $entityManager->flush();
+        } catch (UniqueConstraintViolationException $e) {
+            return $this->json(
+                ['name' => ['Название словаря должно быть уникальным.']],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
 
         return $this->json([
             'id' => $dictionary->getId(),
