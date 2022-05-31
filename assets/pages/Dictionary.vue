@@ -22,6 +22,7 @@
             :modelValue="currentDictionary"
             :items="store.dictionaries"
             class="w-5/12"
+            message="Выбрать словарь"
             @update:modelValue="onChangeDictionary"
         />
 

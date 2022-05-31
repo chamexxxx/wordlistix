@@ -14,7 +14,7 @@
             font-medium transition hover:scale-110 hover:bg-opacity-30"
       >
         <span class="block truncate">
-          {{ modelValue.name }}
+          {{ message }}
         </span>
 
         <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -78,6 +78,7 @@ defineProps({
     type: Array,
     required: true,
   },
+  message: String,
   modelValue: Object,
 });
 
