@@ -129,9 +129,7 @@ class DictionaryController extends AbstractController
                 $entityManager->persist($word);
             }
 
-            $imageFilename = $row['Image'];
-
-            if ($imagesExists && $imageFilename && $newFilename = $zipFileExtractor->extract($imageFilename, $zip)) {
+            if ($imagesExists && isset($row['Image']) && $newFilename = $zipFileExtractor->extract($row['Image'], $zip)) {
                 $comparison->setImage($newFilename);
             }
 
