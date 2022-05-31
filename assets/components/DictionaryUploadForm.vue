@@ -40,11 +40,12 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useStore } from '../store';
+import router from '../router';
 import Form from './base/Form.vue';
 import Field from './base/Field.vue';
 import Uploader from './base/Uploader.vue';
 import Button from './base/Button.vue';
-import { useStore } from '../store';
 
 const emit = defineEmits(['cancel', 'save']);
 
@@ -62,8 +63,9 @@ const save = () => uploadDictionary({
   dictionary: dictionaryFile.value,
   images: imageArchive.value,
 })
-  .then(() => {
-    emit('save');
+  .then((dictionary) => {
+    router.push({ name: 'Dictionary', params: { id: dictionary.id } });
+    emit('save', dictionary);
   })
   .catch((error) => {
     const { data } = error.response;
