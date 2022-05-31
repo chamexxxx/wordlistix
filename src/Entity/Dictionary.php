@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=DictionaryRepository::class)
- * @UniqueEntity("name")
+ * @UniqueEntity(fields="name", message="Название словаря должно быть уникальным.")
  */
 class Dictionary
 {
