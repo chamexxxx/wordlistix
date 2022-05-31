@@ -6,11 +6,11 @@
   >
     <div class="relative z-10">
       <ListboxButton
-          class="relative w-full rounded-lg text-white py-2 pl-3 pr-10 text-left
+          class="relative w-full rounded-lg text-white py-2 pl-3 pr-10 text-left text-sm
             focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2
             focus-visible:ring-white focus-visible:ring-opacity-75
             focus-visible:ring-offset-2
-            focus-visible:ring-offset-orange-300 sm:text-sm bg-black bg-opacity-20
+            focus-visible:ring-offset-orange-300 bg-black bg-opacity-20
             font-medium transition hover:scale-110 hover:bg-opacity-30"
       >
         <span class="block truncate">
